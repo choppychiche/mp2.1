@@ -1,0 +1,61 @@
+
+.container-fluid {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.caution{
+    text-align: center;
+    background-color: black;
+    color: yellow;
+  }
+  .clapton {
+    text-align: center;
+  }
+
+  .card {
+    display: flex;
+    float: left;
+    margin: 90px;
+    
+  }
+
+  .carousel {
+    margin-left: 30%;
+    width: 40%;
+  }
+  .juiceline {
+    text-align: center;
+  }
+  .juice {
+    margin-bottom: 50px;
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .disposable {
+    text-align: center;
+  }
+  .dispo {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    display: flex;
+  }
+  .feel {
+    display: flex;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+  }
+  .others {
+      text-align: center;
+  }
+ i {
+    cursor: pointer;  
+  }
+  .footer {
+    margin-top: 600px;
+  }
