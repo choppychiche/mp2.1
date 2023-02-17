@@ -8,27 +8,28 @@ let shopItemsData = [
     name: "f24g",
     price: 140,
     desc: "fused 24 gauge",
-    img: "images/w2.jpg"
+    img: "images/w2.jpg",
 }, 
 {
     id:"fused26",
     name: "f26g",
     price: 150,
     desc: "fused 26 gauge",
-    img: "images/w2.jpg"
+    img: "images/w2.jpg",
 }, 
 {
     id:"fused28",
     name: "f28g",
     price: 160,
     desc: "fused 28 gauge",
-    img: "images/w2.jpg"
+    img: "images/w2.jpg",
 
-},]
+},
+];
 
-let basket = [{
+let basket = JSON.parse(localStorage.getItem("cart-data")) || [];
     
-}];
+
 
 
 console.log(shop);
@@ -36,7 +37,8 @@ console.log(shop);
 let generateShop =() => {
     return (shop.innerHTML = shopItemsData
         .map((x) => {
-            let {id, name, price, desc, img} = x
+            let {id, name, price, desc, img} = x;
+            let search = basket.find((x) => x.id === id) || [];
         return `
         <div id=product-id-${id} class="card" style="width: 13rem; margin-left: 15%;">
             <img src="images/w2.jpg" class="card-img-top" alt="...">
@@ -48,7 +50,9 @@ let generateShop =() => {
             <div class="buttons"> 
                 <p>Quantity:</p>
                 <i onclick="decrement(${id})" class="bi bi-dash-lg"> </i>
-                    <div id=${id} class="quantity">0</div>
+                    <div id=${id} class="quantity">
+                    ${search.item === undefined? 0 : search.item}
+                    </div>
                 <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
             </div>
           </div>
@@ -71,9 +75,9 @@ let increment = (id) => {
     } else {
         search.item += 1;
     }
-    
-    // console.log(basket);
+      
     update(selectedItem.id);
+    localStorage.setItem("cart-data", JSON.stringify(basket));  
 };
 
 
@@ -81,17 +85,21 @@ let decrement = (id) => {
     let selectedItem = id;
     let search = basket.find((x) => x.id === selectedItem.id);
 
-    if(search.item === 0) return;
-     else {
+    if(search === undefined) return;
+    else if(search.item === 0) return;
+    else {
         search.item -= 1;
     }
-   
-    // console.log(basket);
+    
     update(selectedItem.id);
+    basket = basket.filter((x) => x.item !== 0);
+
+    
+    localStorage.setItem("cart-data", JSON.stringify(basket));
 }; 
 let update = (id) => {
-    let search = basket.find((x) => x.id === id );
-   //  console.log(search);
+    let search = basket.find((x) => x.id === id);
+   
     document.getElementById(id).innerHTML = search.item;
     calculation();
 };
@@ -101,3 +109,5 @@ let calculation = () => {
     cartIcon.innerHTML = (basket.map((x) => x.item).reduce((x, y) => x + y, 0));
     
 };
+
+calculation();
